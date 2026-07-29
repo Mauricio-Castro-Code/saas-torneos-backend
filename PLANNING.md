@@ -7,6 +7,7 @@
 - Clonar el repo `saas-torneos-backend`
 - Copiar `.env.example` a `.env`
 
+
 ```bash
 # Levantar Postgres con Docker (recomendado)
 docker run --name saas-torneos-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=saas_torneos -p 5432:5432 -d postgres:16
