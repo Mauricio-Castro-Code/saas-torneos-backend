@@ -8,3 +8,11 @@ class LigaSerializer(serializers.ModelSerializer):
         model = Liga
         fields = ["id", "nombre", "codigo", "admin", "activa", "creada_en"]
         read_only_fields = ["codigo", "admin", "activa", "creada_en"]
+
+
+class LigaPublicaSerializer(serializers.ModelSerializer):
+    """Para el endpoint público de validar código: no expone `admin`."""
+
+    class Meta:
+        model = Liga
+        fields = ["id", "nombre", "codigo"]
