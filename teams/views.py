@@ -17,7 +17,7 @@ class EquipoViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, EsAdmin]
 
     def get_queryset(self):
-        return Equipo.objects.filter(liga__admin=self.request.user)
+        return Equipo.objects.filter(categoria__temporada__liga__admin=self.request.user)
 
     @action(
         detail=False,
@@ -26,7 +26,10 @@ class EquipoViewSet(viewsets.ModelViewSet):
         permission_classes=[AllowAny],
     )
     def por_liga(self, request, codigo=None):
-        equipos = Equipo.objects.filter(liga__codigo=codigo.upper(), liga__activa=True)
+        equipos = Equipo.objects.filter(
+            categoria__temporada__liga__codigo=codigo.upper(),
+            categoria__temporada__liga__activa=True,
+        )
         return Response(EquipoPublicoSerializer(equipos, many=True).data)
 
     @action(
@@ -54,7 +57,9 @@ class EquipoViewSet(viewsets.ModelViewSet):
         try:
             with transaction.atomic():
                 try:
-                    equipo = Equipo.objects.select_for_update().get(id=equipo_id, liga=liga)
+                    equipo = Equipo.objects.select_for_update().get(
+                        id=equipo_id, categoria__temporada__liga=liga
+                    )
                 except Equipo.DoesNotExist:
                     return Response(
                         {"detail": "Ese equipo no existe en la liga indicada."},

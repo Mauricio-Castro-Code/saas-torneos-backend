@@ -5,7 +5,7 @@ from .models import Equipo, Jugador
 
 @admin.register(Equipo)
 class EquipoAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "liga", "capitan", "creado_en"]
+    list_display = ["nombre", "categoria", "capitan", "creado_en"]
 
 
 @admin.register(Jugador)
