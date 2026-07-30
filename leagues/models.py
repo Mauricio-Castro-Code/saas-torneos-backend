@@ -12,6 +12,10 @@ def generar_codigo_liga():
 
 
 class Liga(models.Model):
+    class Formato(models.TextChoices):
+        LIGA = "liga", "Liga (ida y vuelta)"
+        LIGUILLA = "liguilla", "Liguilla (una vuelta + eliminatorias)"
+
     nombre = models.CharField(max_length=100)
     codigo = models.CharField(max_length=8, unique=True, editable=False)
     admin = models.ForeignKey(
@@ -19,6 +23,12 @@ class Liga(models.Model):
     )
     activa = models.BooleanField(default=True)
     creada_en = models.DateTimeField(auto_now_add=True)
+    sede = models.CharField(max_length=255, blank=True)
+    formato = models.CharField(max_length=10, choices=Formato.choices, default=Formato.LIGA)
+    # Cupos manual por ahora (elegido por el admin al crear la liga). El límite
+    # por tier de suscripción (CLAUDE.md) es una validación futura, todavía no
+    # se enforce en ningún lado -- este campo no la reemplaza.
+    cupos_maximos = models.PositiveIntegerField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.codigo:
