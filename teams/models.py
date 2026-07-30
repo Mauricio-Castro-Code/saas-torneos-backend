@@ -1,11 +1,11 @@
 from django.conf import settings
 from django.db import models
 
-from leagues.models import Liga
-
 
 class Equipo(models.Model):
-    liga = models.ForeignKey(Liga, on_delete=models.CASCADE, related_name="equipos")
+    categoria = models.ForeignKey(
+        "matches.Categoria", on_delete=models.CASCADE, related_name="equipos"
+    )
     nombre = models.CharField(max_length=100)
     logo = models.ImageField(upload_to="equipos/logos/", blank=True, null=True)
     capitan = models.ForeignKey(

@@ -6,16 +6,16 @@ from .models import Equipo
 class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
-        fields = ["id", "liga", "nombre", "logo", "capitan", "creado_en"]
+        fields = ["id", "categoria", "nombre", "logo", "capitan", "creado_en"]
         read_only_fields = ["capitan", "creado_en"]
 
-    def validate_liga(self, liga):
+    def validate_categoria(self, categoria):
         request = self.context["request"]
-        if liga.admin_id != request.user.id:
+        if categoria.temporada.liga.admin_id != request.user.id:
             raise serializers.ValidationError(
-                "No puedes crear equipos en una liga que no administras."
+                "No puedes crear equipos en una categoría que no administras."
             )
-        return liga
+        return categoria
 
 
 class EquipoPublicoSerializer(serializers.ModelSerializer):
@@ -27,9 +27,9 @@ class EquipoPublicoSerializer(serializers.ModelSerializer):
 
 
 class EquipoCapitanSerializer(serializers.ModelSerializer):
-    """El capitan solo puede editar nombre/logo de su equipo, no liga ni capitan."""
+    """El capitan solo puede editar nombre/logo de su equipo, no categoria ni capitan."""
 
     class Meta:
         model = Equipo
-        fields = ["id", "liga", "nombre", "logo", "capitan"]
-        read_only_fields = ["liga", "capitan"]
+        fields = ["id", "categoria", "nombre", "logo", "capitan"]
+        read_only_fields = ["categoria", "capitan"]
