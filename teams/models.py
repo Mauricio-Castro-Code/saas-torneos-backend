@@ -23,15 +23,10 @@ class Equipo(models.Model):
 
 class Jugador(models.Model):
     equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE, related_name="jugadores")
-    usuario = models.ForeignKey(
+    usuario = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="jugador_perfil"
     )
     unido_en = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=["equipo", "usuario"], name="unico_jugador_por_equipo")
-        ]
 
     def __str__(self):
         return f"{self.usuario} - {self.equipo}"
