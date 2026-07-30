@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Equipo, Jugador
+
+
+@admin.register(Equipo)
+class EquipoAdmin(admin.ModelAdmin):
+    list_display = ["nombre", "liga", "capitan", "creado_en"]
+
+
+@admin.register(Jugador)
+class JugadorAdmin(admin.ModelAdmin):
+    list_display = ["usuario", "equipo", "unido_en"]

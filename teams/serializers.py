@@ -1,0 +1,18 @@
+from rest_framework import serializers
+
+from .models import Equipo
+
+
+class EquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipo
+        fields = ["id", "liga", "nombre", "logo", "capitan", "creado_en"]
+        read_only_fields = ["capitan", "creado_en"]
+
+    def validate_liga(self, liga):
+        request = self.context["request"]
+        if liga.admin_id != request.user.id:
+            raise serializers.ValidationError(
+                "No puedes crear equipos en una liga que no administras."
+            )
+        return liga
