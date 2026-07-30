@@ -20,4 +20,12 @@ class JornadaAdmin(admin.ModelAdmin):
 
 @admin.register(Partido)
 class PartidoAdmin(admin.ModelAdmin):
-    list_display = ["equipo_local", "equipo_visitante", "jornada", "horario", "cancha"]
+    list_display = [
+        "equipo_local",
+        "equipo_visitante",
+        "jornada",
+        "horario",
+        "cancha",
+        "goles_local",
+        "goles_visitante",
+    ]
