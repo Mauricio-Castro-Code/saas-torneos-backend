@@ -16,3 +16,11 @@ class EquipoSerializer(serializers.ModelSerializer):
                 "No puedes crear equipos en una liga que no administras."
             )
         return liga
+
+
+class EquipoPublicoSerializer(serializers.ModelSerializer):
+    """Para el flujo de join: no expone info administrativa de la liga."""
+
+    class Meta:
+        model = Equipo
+        fields = ["id", "nombre", "logo", "capitan"]
