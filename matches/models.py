@@ -45,6 +45,12 @@ class Partido(models.Model):
     cancha = models.CharField(max_length=100, blank=True)
     horario = models.DateTimeField(null=True, blank=True)
     nombre_arbitro = models.CharField(max_length=100, blank=True)
+    goles_local = models.PositiveIntegerField(null=True, blank=True)
+    goles_visitante = models.PositiveIntegerField(null=True, blank=True)
+
+    @property
+    def jugado(self):
+        return self.goles_local is not None and self.goles_visitante is not None
 
     def __str__(self):
         return f"{self.equipo_local} vs {self.equipo_visitante}"
