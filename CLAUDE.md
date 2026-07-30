@@ -37,7 +37,7 @@ Esto aplica también en `get_queryset()` para proteger el LIST, no solo el detal
 ## Flujo de alta — MUY IMPORTANTE, no es lo que asumirías por defecto
 1. El **admin** crea la liga y genera un **código único por liga** (ej. `PUE-7A3F`).
 2. El **admin** crea los equipos directamente dentro de la liga (nombre, logo). Los equipos existen SIN capitán al momento de crearse.
-3. Un **jugador** se registra con el código de liga, ve la lista de equipos ya existentes de esa liga, y elige uno para unirse. **Entra directo, sin aprobación de nadie.**
+3. Un **jugador** crea su cuenta (usuario/correo/contraseña, sin código todavía), y en un paso posterior separado ingresa el código de liga, ve la lista de equipos ya existentes de esa liga, y elige uno para unirse. **Entra directo, sin aprobación de nadie.**
 4. **El primer jugador en unirse a un equipo se convierte en su capitán automáticamente.**
 
 No hay flujo de "solicitud pendiente" ni de invitación por correo — todo es autoservicio con código.
