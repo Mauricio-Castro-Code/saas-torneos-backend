@@ -24,3 +24,12 @@ class EquipoPublicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
         fields = ["id", "nombre", "logo", "capitan"]
+
+
+class EquipoCapitanSerializer(serializers.ModelSerializer):
+    """El capitan solo puede editar nombre/logo de su equipo, no liga ni capitan."""
+
+    class Meta:
+        model = Equipo
+        fields = ["id", "liga", "nombre", "logo", "capitan"]
+        read_only_fields = ["liga", "capitan"]
