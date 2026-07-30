@@ -47,6 +47,8 @@ class JornadaSerializer(serializers.ModelSerializer):
 
 class PartidoSerializer(serializers.ModelSerializer):
     jugado = serializers.BooleanField(read_only=True)
+    equipo_local_nombre = serializers.CharField(source="equipo_local.nombre", read_only=True)
+    equipo_visitante_nombre = serializers.CharField(source="equipo_visitante.nombre", read_only=True)
 
     class Meta:
         model = Partido
@@ -54,7 +56,9 @@ class PartidoSerializer(serializers.ModelSerializer):
             "id",
             "jornada",
             "equipo_local",
+            "equipo_local_nombre",
             "equipo_visitante",
+            "equipo_visitante_nombre",
             "cancha",
             "horario",
             "nombre_arbitro",
